@@ -63,6 +63,8 @@ RUN Rscript -e "install.packages('devtools')" \
     -e "install.packages(c('repr','IRkernel','IRdisplay'), repos = c('http://irkernel.github.io/', getOption('repos')))" \
     -e "IRkernel::installspec()"
 
+RUN pip install Cython pystan && \
+    pip3 install Cython numpy pandas pystan
 
 RUN echo '#!/bin/bash' > /start-notebook.sh && \
      echo 'jupyter notebook --no-browser --ip=*' >> /start-notebook.sh && \
