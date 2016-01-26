@@ -1,37 +1,57 @@
-FROM ubuntu:14.04
+FROM debian:jessie
+MAINTAINER Patrick Callier <pcallier@lab41.org>
 
 RUN apt-get update
 
-RUN apt-get install -y \
-	build-essential
+RUN apt-get install -y --force-yes \
+	build-essential \
+	gfortran \
+	libatlas-base-dev
 
 RUN apt-get install -y \
 	python \
 	python3 \
 	python-pip \
-	python-matplotlib
-
-RUN apt-get install -y \
+	python-matplotlib \
 	python3-dev \
 	python3-pip \
-	python-dev
+	python-dev \
+	git
 
 RUN pip install \
-    jupyter
+    jupyter \
+    cython \
+    numpy \
+    pandas
+
+RUN pip install -e \
+    git+git://github.com/scipy/scipy.git@v0.17.0#egg=scipy-0.17.0
+
+RUN pip install \
+    scikit-learn 
 
 RUN pip3 install \
-    jupyter
+    jupyter \
+    cython \
+    numpy \
+    pandas 
+
+RUN pip3 install -e \
+    git+git://github.com/scipy/scipy.git@v0.17.0#egg=scipy-0.17.0
+
+RUN pip3 install \
+    scikit-learn 
 
 # Add kernels for each version of python
 RUN ipython kernelspec install-self && \
     ipython3 kernelspec install-self
 
 # Install R
-RUN sudo echo "deb http://cran.rstudio.com/bin/linux/ubuntu trusty/" > /etc/apt/sources.list.d/cran.list
+RUN echo "deb http://cran.rstudio.com/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
 # Add cran key to system (may change)
-RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+RUN apt-key adv --keyserver keys.gnupg.net --recv-key 381BA480
 
-RUN sudo apt-get update
+RUN apt-get update
 
 RUN apt-get install -y --force-yes \
     r-base \
@@ -39,8 +59,7 @@ RUN apt-get install -y --force-yes \
     r-cran-mass \
     r-cran-car \
     r-cran-nlme \
-    r-cran-nnet \
-    gfortran
+    r-cran-nnet
 
 COPY stan_options.R /
 
