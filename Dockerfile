@@ -6,13 +6,14 @@ RUN apt-get update
 RUN apt-get install -y --force-yes \
 	build-essential \
 	gfortran \
-	libatlas-base-dev
+	pkg-config \
+	libatlas-base-dev \
+ 	libfreetype6-dev
 
 RUN apt-get install -y \
 	python \
 	python3 \
 	python-pip \
-	python-matplotlib \
 	python3-dev \
 	python3-pip \
 	python-dev \
@@ -22,7 +23,9 @@ RUN pip install \
     jupyter \
     cython \
     numpy \
-    pandas
+    pandas \
+    seaborn \
+    matplotlib
 
 RUN pip install -e \
     git+git://github.com/scipy/scipy.git@v0.17.0#egg=scipy-0.17.0
@@ -34,7 +37,9 @@ RUN pip3 install \
     jupyter \
     cython \
     numpy \
-    pandas 
+    pandas \
+    seaborn \
+    matplotlib
 
 RUN pip3 install -e \
     git+git://github.com/scipy/scipy.git@v0.17.0#egg=scipy-0.17.0
