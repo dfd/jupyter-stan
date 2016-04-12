@@ -3,14 +3,14 @@ MAINTAINER Patrick Callier <pcallier@lab41.org>
 
 RUN apt-get update
 
-RUN apt-get install -y --force-yes \
+RUN apt-get install -yq --force-yes \
 	build-essential \
 	gfortran \
 	pkg-config \
 	libatlas-base-dev \
  	libfreetype6-dev
 
-RUN apt-get install -y \
+RUN apt-get install -yq \
 	python \
 	python3 \
 	python-pip \
@@ -58,7 +58,7 @@ RUN apt-key adv --keyserver keys.gnupg.net --recv-key 381BA480
 
 RUN apt-get update
 
-RUN apt-get install -y --force-yes \
+RUN apt-get install -yq --force-yes \
     r-base \
     r-recommended \
     r-cran-mass \
@@ -76,11 +76,11 @@ RUN R -e 'install.packages("rstan", dependencies=TRUE, repo="http://cran.rstudio
 RUN echo 'options("repos"="http://cran.rstudio.com")' >> /usr/lib/R/etc/Rprofile.site
 
 # Install IRkernel
-RUN apt-get install -y --force-yes \
+RUN apt-get install -yq --force-yes \
     libssl-dev \
     libssh2-1-dev \
     libcurl4-openssl-dev
-RUN apt-get install -y --force-yes \
+RUN apt-get install -yq --force-yes \
     libzmq3-dev
 RUN Rscript -e "install.packages('devtools')" \
     -e "library('devtools'); install_github('armstrtw/rzmq')" \
