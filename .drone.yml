@@ -1,0 +1,2 @@
+build:
+    image: pcallier/jupyter-stan
