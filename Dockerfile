@@ -19,10 +19,12 @@ RUN apt-get install -yq \
 	python-dev \
 	git
 
+RUN pip install numpy
+
 RUN pip install \
     jupyter \
     cython \
-    numpy \
+    #numpy \
     pandas \
     seaborn \
     matplotlib
@@ -33,10 +35,12 @@ RUN pip install -e \
 RUN pip install \
     scikit-learn 
 
+RUN pip3 install numpy
+
 RUN pip3 install \
     jupyter \
     cython \
-    numpy \
+    #numpy \
     pandas \
     seaborn \
     matplotlib

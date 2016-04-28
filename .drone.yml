@@ -8,4 +8,9 @@ publish:
         when:
             branch: master
 
-        
+build:
+    image: ubuntu
+    commands:
+        - echo User
+        - echo $$DOCKER_USER
+
