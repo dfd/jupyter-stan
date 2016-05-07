@@ -12,48 +12,7 @@ RUN apt-get install -yq --force-yes \
 
 RUN apt-get install -yq \
 	python \
-	python3 \
-	python-pip \
-	python3-dev \
-	python3-pip \
-	python-dev \
 	git
-
-RUN pip install numpy
-
-RUN pip install \
-    jupyter \
-    cython \
-    #numpy \
-    pandas \
-    seaborn \
-    matplotlib
-
-RUN pip install -e \
-    git+git://github.com/scipy/scipy.git@v0.17.0#egg=scipy-0.17.0
-
-RUN pip install \
-    scikit-learn 
-
-RUN pip3 install numpy
-
-RUN pip3 install \
-    jupyter \
-    cython \
-    #numpy \
-    pandas \
-    seaborn \
-    matplotlib
-
-RUN pip3 install -e \
-    git+git://github.com/scipy/scipy.git@v0.17.0#egg=scipy-0.17.0
-
-RUN pip3 install \
-    scikit-learn 
-
-# Add kernels for each version of python
-RUN ipython kernelspec install-self && \
-    ipython3 kernelspec install-self
 
 # Install R
 RUN echo "deb http://cran.rstudio.com/bin/linux/debian jessie-cran3/" >> /etc/apt/sources.list
@@ -91,12 +50,8 @@ RUN Rscript -e "install.packages('devtools')" \
     -e "install.packages(c('repr','IRkernel','IRdisplay'), repos = c('http://irkernel.github.io/', getOption('repos')))" \
     -e "IRkernel::installspec()"
 
-RUN pip install pystan && \
-    pip3 install pystan
-
-RUN echo '#!/bin/bash' > /start-notebook.sh && \
-     echo 'jupyter notebook --no-browser --ip=*' >> /start-notebook.sh && \
-     chmod +x /start-notebook.sh
+ADD start-notebook.sh /start-notebook.sh
+RUN chmod +x /start-notebook.sh
 
 WORKDIR /home
 
